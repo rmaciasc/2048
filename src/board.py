@@ -8,15 +8,10 @@ class Board:
     board_values = [[0 for _ in range(4)] for _ in range(4)]
     screen: pygame.Surface
 
-    def draw_board(self, score: int, hi_score: int) -> None:
-        main_font = pygame.font.Font("freesansbold.ttf", 28)
+    def draw_board(self) -> None:
         pygame.draw.rect(self.screen, Ui.colors["bg"], [0, 0, 400, 400], 0, 10)
-        score_text = main_font.render(f"Score: {score}", True, "black")
-        hi_score_text = main_font.render(f"High Score: {hi_score}", True, "black")
-        self.screen.blit(score_text, (10, 410))
-        self.screen.blit(hi_score_text, (10, 450))
 
-    def draw_pieces(self):
+    def draw_pieces(self) -> None:
         for i in range(len(self.board_values)):
             for j in range(len(self.board_values)):
                 value = self.board_values[i][j]
@@ -39,3 +34,12 @@ class Board:
                     text_rect = value_text.get_rect(center=(j * 97 + 52, i * 97 + 52))
                     self.screen.blit(value_text, text_rect)
                     pygame.draw.rect(self.screen, "black", square_coord, 2, 8)
+
+    def draw_game_over(self):
+        pygame.draw.rect(self.screen, "black", [50, 50, 300, 100], 0, 18)
+        game_over_font = pygame.font.Font("freesansbold.ttf", 24)
+        game_over_txt1 = game_over_font.render("Game!", True, "white")
+        game_over_txt2 = game_over_font.render("Press Enter to Restart", True, "white")
+
+        self.screen.blit(game_over_txt1, (150, 65))
+        self.screen.blit(game_over_txt2, (70, 105))
